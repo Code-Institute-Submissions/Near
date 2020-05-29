@@ -1,6 +1,9 @@
 # Near
 This is my 2nd milestone project with Code Institute and their Full Stack Web Developer course.
 
+## Demo
+<img src="assets/images/gifs/DesktopView.gif" width="70%" height="70%" /><img src="assets/images/gifs/MobileViewOriginal.gif" width="10%" height="10%" /><img src="assets/images/gifs/TabletView.gif" width="20%" height="20%" />
+
 ## Summary 
 
 ### Project purpose: Presentation of interacitve data
@@ -61,7 +64,7 @@ The default map is very colorful and I wanted to keep the rest of the page clean
 
 #### Fonts
 
-For the font for Heading1`<h1>` and the paragraphs`<p>` I used Open Sans, from Google Fonts. This font works well with the design as it is modern and simple. *"Open Sans was designed with an upright stress, open forms and a neutral, yet friendly appearance. It was optimized for print, web, and mobile interfaces, and has excellent legibility characteristics in its letterforms"* [[Google Fonts, 2020]](https://fonts.google.com/specimen/Open+Sans).
+For the font for Heading1`<h1>` and the paragraphs`<p>` I used Open Sans, from Google Fonts. This font works well with the design as it is modern and simple. > Open Sans was designed with an upright stress, open forms and a neutral, yet friendly appearance. It was optimized for print, web, and mobile interfaces, and has excellent legibility characteristics in its letterforms. - [[Google Fonts, 2020]](https://fonts.google.com/specimen/Open+Sans).
 
 ## Features
 
@@ -119,13 +122,32 @@ I used [W3C Validator](https://validator.w3.org/) to check the markup validity o
 
 I used [Esprima](https://esprima.org/demo/validate.html) Syntax Validator to check main.js, the code was syntactically valid.
 
+### Functional tests
 
-* 
+|   Scenario  |        Test      |    Actual Result  |  Pass/Fail  |     Comments     |
+| ------------|:----------------:| :----------------:| :----------:| :---------------:|
+|User opens the project| Navigator supports geolocation | Navigator has geolocation, asks for permission to access your location | Pass | This was tested in India and Sweden with different devices and positions
+|       | Navigator doesn't support geolocation | Alert showing "Your browser does not support the geolocation API." | Pass | Geolocation is most accurate for devices with GPS, like smartphone. [Browsers supported](https://www.w3schools.com/html/html5_geolocation.asp) 
+|    | User denies permission to access his position | Alert shows "Access to the user's position has not been allowed." | Pass | 
+|    | Navigator supports geolocation but the position is unavailable | Alert shows "Your position information could not be accessed." | Pass |
+|    | Navigator supports geolocation, user allows access to his position but the it takes too long to access his position | Alert shows "The service has taken too long to respond." | Pass | This was tested in Cuba where internet is very slow. 
+|    | Navigator supports geolocation, user allows access to his position, the navigator finds his position but the map doesn't show up | Alert shows "Unknown error." | Pass | This was added to inform the user that something went wrong and not keep him waiting
+| User picks a place (icon) nearby | The map shows places in a 5000 m radius | The map shows position of places nearby | Pass |
+|    | The map doesn't show places nearby if non exist | The map shows user position but no places nearby | Pass | To test this in Stockholm the radius was reduced to 40 m 
+| User picks (clicks on marker) one of the places nearby | The panel shows information | Photo, Name, Rating, Address is displayed about the place | Pass | 
+| User decides to go to a website | Test links provided by the API | The links provided by the api are correct and the user is redirected to the website of the site he chose | Pass
 
-*
+### Unit tests
+For unit tests the [Jasmine](https://jasmine.github.io/2.5/introduction) unit testing framework was used
 
-*
+* For the 1st test I Mock out Google Maps Places API following with Jasmine Spies created by [Kevin Wilson](https://kwilson.io/blog/mock-out-google-maps-geocoder-with-jasmine-spies/)
+    [![Create Marker test](assets/images/tests/CreateMarker.png)](testsJasmineWithMap.html)
 
+
+* For the second test try to verify that the map was created correctly and this mainly depends on whether or not the browser used supports geolocation, so just showing an alert that the browser supports geolocation would be sufficient.
+  To do this I instantiated the constructor and called the function initMapa and `spyOn(window, 'alert');`
+    [![Create Marker test](assets/images/tests/GetPosition.png)](testsJasmineWithMap.html)
+    
 ## Deployment
 
 The project was created with IntelliJ and the site is hosted by GitHub. Different branches were used, each one with various commits, named depending on their long-term purpose and changed characteristic respectively. Several pull requests were created once the branch's purpose was fulfilled. It was used the master branch which allows every change, commit and push to show immediately in real time to users.
